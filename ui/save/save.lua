@@ -1,17 +1,25 @@
-local HttpService = game:GetService("HttpService")
-local Config = require(game.ReplicatedStorage.Lui.config.config)
-
 local Save = {}
+local JSON = {}
+
+-- tiny JSON encode/decode for universal
+function JSON:Encode(t)
+    return game and game:GetService("HttpService"):JSONEncode(t) or "[]"
+end
+function JSON:Decode(str)
+    return game and game:GetService("HttpService"):JSONDecode(str) or {}
+end
 
 function Save:Load()
-    if not isfile(Config.Save.File) then
-        return {}
+    if isfile and isfile("LuiSave.json") then
+        return JSON:Decode(readfile("LuiSave.json"))
     end
-    return HttpService:JSONDecode(readfile(Config.Save.File))
+    return {}
 end
 
 function Save:Write(data)
-    writefile(Config.Save.File, HttpService:JSONEncode(data))
+    if writefile then
+        writefile("LuiSave.json", JSON:Encode(data))
+    end
 end
 
 return Save
