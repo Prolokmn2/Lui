@@ -1,14 +1,17 @@
 local Config = {}
 
+-- Save system
 Config.Save = {
     File = "LuiSave.json",
     AutoPlayerInfo = true
 }
 
+-- Keybinds (UI toggle)
 Config.Keybind = {
-    ToggleUI = Enum.KeyCode.RightShift
+    ToggleUI = "RightShift" -- change as needed
 }
 
+-- Key system (for cheats / external)
 Config.Keysystem = {
     Enabled = true,
     Key = "prolokmn",
